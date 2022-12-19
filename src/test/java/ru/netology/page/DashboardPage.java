@@ -29,7 +29,7 @@ public class DashboardPage {
         return extractBalance(text);
     }
 
-    private static int extractBalance(String text) {
+    private int extractBalance(String text) {
         val start = text.indexOf(balanceStart);
         val finish = text.indexOf(balanceFinish);
         val value = text.substring(start + balanceStart.length(), finish);

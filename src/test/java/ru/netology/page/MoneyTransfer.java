@@ -1,11 +1,10 @@
 package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
-import lombok.Value;
+
 
 import static com.codeborne.selenide.Selenide.$;
 
-@Value
 public class MoneyTransfer {
 
     private SelenideElement amountField = $("[data-test-id='amount'] input");

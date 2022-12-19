@@ -1,14 +1,11 @@
 package ru.netology.test;
 
 import lombok.val;
-import org.hamcrest.Matcher;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
-import ru.netology.page.DashboardPage;
 import ru.netology.page.LoginPage;
-
 import static com.codeborne.selenide.Selenide.open;
-import static org.hamcrest.Matchers.containsString;
 import static ru.netology.data.DataHelper.getFirstCardInfo;
 import static ru.netology.data.DataHelper.getSecondCardInfo;
 
@@ -26,15 +23,11 @@ class MoneyTransferTest {
         val firstBalance = dashboardPage.getCardBalance(getFirstCardInfo());
         val secondBalance = dashboardPage.getCardBalance(getSecondCardInfo());
         val transferPage = dashboardPage.replenishButtonClick(getSecondCardInfo());
-        int amount = 4000;
-        transferPage.moneyTransfer(amount, getFirstCardInfo().getCardNumber());
-        val dashboardPageAfterTransfer = new DashboardPage();
-        dashboardPageAfterTransfer.getCardBalance(getFirstCardInfo());
-        assertThat(dashboardPageAfterTransfer, containsString(String.valueOf(getFirstCardInfo())));
-        assertThat(dashboardPageAfterTransfer, containsString(String.valueOf(getSecondCardInfo())));
+        int amount = 5000;
+        transferPage.moneyTransfer(amount, DataHelper.getFirstCardInfo().getCardNumber());
+        Assertions.assertEquals(firstBalance - amount, dashboardPage.getCardBalance(getFirstCardInfo()));
+        Assertions.assertEquals(secondBalance + amount, dashboardPage.getCardBalance(getSecondCardInfo()));
 
-    }
-
-    private void assertThat(DashboardPage dashboardPageAfterTransfer, Matcher<String> containsString) {
     }
 }
+
